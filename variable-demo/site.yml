@@ -2,12 +2,7 @@
 - name: Install and configure httpd
   hosts: nodes
   become: yes
-  vars:
-  vars_files:
-    - vars.yml
   tasks:
-    - name: Include vars
-      include_vars: vars.yml 
     - name: Install httpd & firewalld
       yum:
         name:
@@ -16,7 +11,7 @@
         state: latest
     - name: Enable and Start httpd
       service:
-        name: httpd
+        name: "{{ web_package }}"
         enabled: true
         state: started
     - name: Enable and Start firewalld
